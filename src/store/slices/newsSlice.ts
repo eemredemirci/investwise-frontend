@@ -1,56 +1,84 @@
+/**
+ * Haberler (News) Slice
+ * 
+ * Bu slice, uygulama haberlerini ve bildirimlerini yönetir.
+ * Özellikler:
+ * - Haber listesi
+ * - Okunmamış haber sayısı
+ * - Haber kategorileri
+ * - Önem seviyeleri
+ * 
+ * Actions:
+ * - setNews: Tüm haber listesini günceller
+ * - addNews: Yeni haber ekler
+ * - markAsRead: Haberi okundu olarak işaretler
+ * - markAllAsRead: Tüm haberleri okundu olarak işaretler
+ */
+
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { NewsState, NewsItem } from '../../types';
 
-export interface News {
-  id: string;
-  title: string;
-  content: string;
-  date: string;
-  isRead: boolean;
-  category: 'market' | 'fund' | 'economy' | 'company';
-  importance: 'high' | 'medium' | 'low';
-}
-
-interface NewsState {
-  items: News[];
-  unreadCount: number;
-}
-
+/**
+ * Başlangıç durumu
+ */
 const initialState: NewsState = {
   items: [
     {
       id: '1',
-      title: 'Merkez Bankası Faiz Kararı Açıklandı',
-      content: 'Merkez Bankası politika faizini %45 seviyesinde sabit tuttu.',
+      title: 'Piyasalarda Son Durum',
+      content: 'Borsa İstanbul güne yükselişle başladı...',
+      category: 'market',
+      importance: 'high',
       date: new Date().toISOString(),
       isRead: false,
-      category: 'economy',
-      importance: 'high',
     },
     {
       id: '2',
-      title: 'Yeni Teknoloji Fonu Piyasaya Sunuldu',
-      content: 'ABC Portföy, yeni teknoloji odaklı yatırım fonunu yatırımcılara sundu.',
-      date: new Date().toISOString(),
-      isRead: false,
+      title: 'Yeni Fon Lansmanı',
+      content: 'ABC Portföy yeni teknoloji fonunu yatırımcılara sundu...',
       category: 'fund',
       importance: 'medium',
+      date: new Date().toISOString(),
+      isRead: false,
     },
-    // Daha fazla örnek haber eklenebilir
   ],
   unreadCount: 2,
 };
 
+/**
+ * News slice tanımı
+ */
 const newsSlice = createSlice({
   name: 'news',
   initialState,
   reducers: {
-    addNews: (state, action: PayloadAction<Omit<News, 'isRead'>>) => {
-      state.items.unshift({
-        ...action.payload,
-        isRead: false,
-      });
-      state.unreadCount += 1;
+    /**
+     * Tüm haber listesini günceller ve okunmamış sayısını hesaplar
+     * @param state - Mevcut state
+     * @param action - Güncellenecek haber listesi
+     */
+    setNews: (state, action: PayloadAction<NewsItem[]>) => {
+      state.items = action.payload;
+      state.unreadCount = action.payload.filter(item => !item.isRead).length;
     },
+
+    /**
+     * Yeni haber ekler ve okunmamış sayısını günceller
+     * @param state - Mevcut state
+     * @param action - Eklenecek haber
+     */
+    addNews: (state, action: PayloadAction<NewsItem>) => {
+      state.items.unshift(action.payload);
+      if (!action.payload.isRead) {
+        state.unreadCount += 1;
+      }
+    },
+
+    /**
+     * Haberi okundu olarak işaretler
+     * @param state - Mevcut state
+     * @param action - Okundu işaretlenecek haberin ID'si
+     */
     markAsRead: (state, action: PayloadAction<string>) => {
       const news = state.items.find(item => item.id === action.payload);
       if (news && !news.isRead) {
@@ -58,14 +86,19 @@ const newsSlice = createSlice({
         state.unreadCount -= 1;
       }
     },
+
+    /**
+     * Tüm haberleri okundu olarak işaretler
+     * @param state - Mevcut state
+     */
     markAllAsRead: (state) => {
-      state.items.forEach(news => {
-        news.isRead = true;
+      state.items.forEach(item => {
+        item.isRead = true;
       });
       state.unreadCount = 0;
     },
   },
 });
 
-export const { addNews, markAsRead, markAllAsRead } = newsSlice.actions;
+export const { setNews, addNews, markAsRead, markAllAsRead } = newsSlice.actions;
 export default newsSlice.reducer; 

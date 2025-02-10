@@ -1,15 +1,41 @@
+/**
+ * Fon Satın Alma Sayfası
+ * 
+ * Bu sayfa, kullanıcıların yatırım fonu satın alma sürecini yönetir.
+ * Özellikler:
+ * - Banka seçimi
+ * - Fon detayları gösterimi
+ * - Satın alma talimatları
+ * - Banka entegrasyonu
+ * - Animasyonlu UI elemanları
+ * 
+ * İşlem adımları:
+ * 1. Fon bilgilerini görüntüleme
+ * 2. Banka seçimi
+ * 3. Satın alma talimatlarını görüntüleme
+ * 4. Banka girişine yönlendirme
+ * 
+ * @component
+ */
+
 import { Box, Typography, Card, CardContent, Button, Grid, useTheme, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { AccountBalance, Info } from '@mui/icons-material';
 import { useState } from 'react';
 
+/**
+ * Banka bilgilerini tanımlayan arayüz
+ */
 interface Bank {
-  id: string;
-  name: string;
-  logo: string;
-  loginUrl: string;
-  instructions: string;
+  id: string;        // Banka kimliği
+  name: string;      // Banka adı
+  logo: string;      // Banka logosu URL'i
+  loginUrl: string;  // Banka giriş sayfası URL'i
+  instructions: string; // Satın alma talimatları
 }
 
+/**
+ * Desteklenen bankalar listesi
+ */
 const banks: Bank[] = [
   { 
     id: 'ing', 
@@ -34,12 +60,21 @@ const banks: Bank[] = [
   },
 ];
 
+/**
+ * Seçili fon detayları
+ */
 const fundDetails = {
   code: 'HEH',
   name: 'TCA Ziraat Portföy Altın Katılım Fonu',
   description: 'Bu fon, altın ve altına dayalı sermaye piyasası araçlarına yatırım yaparak, altın fiyatlarındaki değişimleri yatırımcılara yansıtmayı hedefleyen bir katılım fonudur. Fon portföyünün en az %80\'i devamlı olarak altın ve altına dayalı sermaye piyasası araçlarından oluşmaktadır.',
 };
 
+/**
+ * FundPurchase bileşeni
+ * Fon satın alma sürecini yöneten ana bileşen
+ * 
+ * @returns {JSX.Element} FundPurchase bileşeni
+ */
 export default function FundPurchase() {
   const theme = useTheme();
   const [showDetails, setShowDetails] = useState(false);

@@ -1,23 +1,38 @@
 /**
- * Redux store yapılandırması
+ * Redux Store Konfigürasyonu
+ * 
  * Bu dosya, uygulamanın merkezi state yönetimini yapılandırır.
- * Tüm reducer'lar burada birleştirilir ve tek bir store oluşturulur.
+ * Özellikler:
+ * - Redux Toolkit kullanımı
+ * - Slice'ların birleştirilmesi
+ * - Middleware yapılandırması
+ * - DevTools entegrasyonu
+ * 
+ * Slice'lar:
+ * - auth: Kullanıcı kimlik doğrulama
+ * - portfolio: Yatırım portföyü yönetimi
+ * - news: Haber ve bildirimler
  */
+
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './slices/authSlice';
 import portfolioReducer from './slices/portfolioSlice';
 import newsReducer from './slices/newsSlice';
 
-// Ana store yapılandırması
+/**
+ * Redux store yapılandırması
+ */
 const store = configureStore({
   reducer: {
-    // Kullanıcı kimlik doğrulama state'i
-    auth: authReducer,
-    // Portföy yönetimi state'i
-    portfolio: portfolioReducer,
-    // Haberler ve duyurular state'i
-    news: newsReducer,
+    auth: authReducer,         // Kimlik doğrulama state'i
+    portfolio: portfolioReducer, // Portföy state'i
+    news: newsReducer,         // Haberler state'i
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false, // Date nesneleri için serialization kontrolünü devre dışı bırak
+    }),
+  devTools: process.env.NODE_ENV !== 'production', // Geliştirme ortamında DevTools'u etkinleştir
 });
 
 // TypeScript için dispatch tipini dışa aktar

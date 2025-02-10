@@ -1,6 +1,31 @@
+/**
+ * Fon Analiz Sayfası
+ * 
+ * Bu sayfa, yatırım fonlarının detaylı analizini sunar.
+ * Özellikler:
+ * - Fon listesi tablosu
+ * - Performans göstergeleri
+ * - Risk seviyeleri
+ * - Renk kodlu göstergeler
+ * - Dinamik veri formatlaması
+ * 
+ * Tablo özellikleri:
+ * - Fon adı
+ * - Fon tipi
+ * - Güncel değer
+ * - Performans yüzdesi
+ * - Risk seviyesi göstergesi
+ * 
+ * @component
+ */
+
 import { Box, Typography, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { Fund } from '../../types';
 
+/**
+ * Örnek fon verileri
+ * API entegrasyonu yapılana kadar kullanılacak
+ */
 const dummyFundData: Fund[] = [
   {
     id: '1',
@@ -28,6 +53,12 @@ const dummyFundData: Fund[] = [
   },
 ];
 
+/**
+ * FundAnalysis bileşeni
+ * Yatırım fonlarının analizini gösteren tablo
+ * 
+ * @returns {JSX.Element} FundAnalysis bileşeni
+ */
 export default function FundAnalysis() {
   return (
     <Box>

@@ -1,3 +1,23 @@
+/**
+ * Giriş Sayfası
+ * 
+ * Bu sayfa, kullanıcı kimlik doğrulama sürecini yönetir.
+ * Özellikler:
+ * - Kullanıcı girişi formu
+ * - Kullanım koşulları ve gizlilik politikası onayı
+ * - Animasyonlu UI elemanları
+ * - Hata mesajları
+ * - Güvenlik bildirimleri
+ * 
+ * Özellikler:
+ * - E-posta ve şifre validasyonu
+ * - Koşullar ve politika modalları
+ * - Otomatik yönlendirme
+ * - Görsel geri bildirimler
+ * 
+ * @component
+ */
+
 import { useState } from 'react';
 import {
   Box,
@@ -18,6 +38,12 @@ import {
 import { AccountBalance, LockOpen, Info, CheckCircleOutline } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * Login bileşeni
+ * Kullanıcı girişi ve kayıt sürecini yöneten ana bileşen
+ * 
+ * @returns {JSX.Element} Login bileşeni
+ */
 export default function Login() {
   const navigate = useNavigate();
   const [showTerms, setShowTerms] = useState(false);
@@ -25,6 +51,10 @@ export default function Login() {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
 
+  /**
+   * Giriş formunu işler
+   * @param {React.FormEvent} e - Form submit olayı
+   */
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (acceptedTerms && acceptedPrivacy) {

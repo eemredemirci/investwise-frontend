@@ -1,3 +1,24 @@
+/**
+ * Ana Sayfa Düzeni (Layout) Bileşeni
+ * 
+ * Bu bileşen, uygulamanın temel sayfa düzenini oluşturur ve aşağıdaki özellikleri sağlar:
+ * - Responsive yan menü (drawer)
+ * - Üst menü çubuğu (app bar)
+ * - Piyasa bilgi bandı (market ticker)
+ * - Dinamik sayfa içeriği (router outlet)
+ * - Kullanıcı menüsü
+ * - Haber bildirimleri
+ * 
+ * Özellikler:
+ * - Material-UI bileşenleri ile modern ve responsive tasarım
+ * - Animasyonlu geçişler ve hover efektleri
+ * - Mobil uyumlu menü sistemi
+ * - Okunmamış haber bildirimleri
+ * - Kullanıcı oturum durumu kontrolü
+ * 
+ * @component
+ */
+
 import { useState } from 'react';
 import { Box, Drawer, AppBar, Toolbar, Typography, List, ListItem, ListItemIcon, ListItemText, IconButton, Menu, MenuItem, Avatar, Badge } from '@mui/material';
 import {
@@ -26,14 +47,22 @@ import Login from '../../pages/Login';
 import { useTheme } from '@mui/material/styles';
 import NewsDialog from '../NewsDialog';
 
+/**
+ * Yan menü öğelerinin yapısını tanımlayan arayüz
+ */
 interface MenuItem {
-  text: string;
-  icon: JSX.Element;
-  path: string;
+  text: string;      // Menü öğesi metni
+  icon: JSX.Element; // Menü öğesi ikonu
+  path: string;      // Yönlendirilecek sayfa yolu
 }
 
+// Yan menü genişliği (piksel)
 const drawerWidth = 240;
 
+/**
+ * Yan menü öğeleri listesi
+ * Her öğe için metin, ikon ve yönlendirme yolu içerir
+ */
 const menuItems: MenuItem[] = [
   { text: 'Fon Analiz', icon: <ShowChart />, path: '/fund-analysis' },
   { text: 'Trend Fonlar', icon: <TrendingUp />, path: '/trending-funds' },
@@ -48,6 +77,12 @@ const menuItems: MenuItem[] = [
   { text: 'Kampanyalarımız', icon: <LocalOffer />, path: '/campaigns' },
 ];
 
+/**
+ * Layout bileşeni
+ * Uygulamanın ana sayfa düzenini oluşturur
+ * 
+ * @returns {JSX.Element} Layout bileşeni
+ */
 export default function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

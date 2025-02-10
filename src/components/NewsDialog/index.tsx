@@ -1,3 +1,18 @@
+/**
+ * Haberler İletişim Kutusu (News Dialog) Bileşeni
+ * 
+ * Bu bileşen, kullanıcıya haberleri ve duyuruları gösteren bir modal pencere sunar.
+ * Özellikler:
+ * - Kategori bazlı filtreleme
+ * - Okundu/okunmadı durumu takibi
+ * - Önem seviyesine göre işaretleme
+ * - Haber zamanı gösterimi
+ * - Toplu okundu işaretleme
+ * - Animasyonlu bildirimler
+ * 
+ * @component
+ */
+
 import { useState } from 'react';
 import {
   Dialog,
@@ -24,24 +39,40 @@ import { markAsRead, markAllAsRead } from '../../store/slices/newsSlice';
 import { formatDistanceToNow } from 'date-fns';
 import { tr } from 'date-fns/locale';
 
+/**
+ * Bileşen props arayüzü
+ */
 interface NewsDialogProps {
-  open: boolean;
-  onClose: () => void;
+  open: boolean;           // Modal'ın açık/kapalı durumu
+  onClose: () => void;     // Modal kapatma fonksiyonu
 }
 
+/**
+ * Haber kategorilerine göre renk kodları
+ */
 const categoryColors = {
-  market: '#3b82f6',
-  fund: '#22c55e',
-  economy: '#f59e0b',
-  company: '#ef4444',
+  market: '#3b82f6',    // Piyasa haberleri için mavi
+  fund: '#22c55e',      // Fon haberleri için yeşil
+  economy: '#f59e0b',   // Ekonomi haberleri için turuncu
+  company: '#ef4444',   // Şirket haberleri için kırmızı
 };
 
+/**
+ * Önem seviyesi etiketleri
+ */
 const importanceLabels = {
   high: 'Önemli',
   medium: 'Normal',
   low: 'Düşük',
 };
 
+/**
+ * NewsDialog bileşeni
+ * Haberleri ve duyuruları listeleyen modal pencere
+ * 
+ * @param {NewsDialogProps} props - Bileşen props'ları
+ * @returns {JSX.Element} NewsDialog bileşeni
+ */
 export default function NewsDialog({ open, onClose }: NewsDialogProps) {
   const dispatch = useDispatch();
   const { items } = useSelector((state: RootState) => state.news);

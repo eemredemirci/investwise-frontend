@@ -1,15 +1,36 @@
+/**
+ * Piyasa Bilgi Bandı (Market Ticker) Bileşeni
+ * 
+ * Bu bileşen, canlı piyasa verilerini gösteren kayan bir bilgi bandı oluşturur.
+ * Özellikler:
+ * - Otomatik kayan animasyon
+ * - Hover durumunda durma
+ * - Canlı veri güncelleme simülasyonu
+ * - Tooltip ile detaylı bilgi gösterimi
+ * - Pozitif/negatif değişimlere göre renk kodlaması
+ * 
+ * @component
+ */
+
 import { Box, Paper, Typography, useTheme, Tooltip } from '@mui/material';
 import { ArrowDropUp, ArrowDropDown } from '@mui/icons-material';
 import { useState, useEffect } from 'react';
 import { alpha } from '@mui/material/styles';
 
+/**
+ * Piyasa verisi yapısını tanımlayan arayüz
+ */
 interface MarketData {
-  symbol: string;
-  name: string;
-  value: number;
-  change: number;
+  symbol: string;    // Piyasa sembolü (örn: USD/TL)
+  name: string;      // Gösterim adı
+  value: number;     // Güncel değer
+  change: number;    // Değişim yüzdesi
 }
 
+/**
+ * Başlangıç piyasa verileri
+ * Gerçek API bağlantısı yapılana kadar kullanılacak örnek veriler
+ */
 const initialData: MarketData[] = [
   { symbol: 'USD/TL', name: 'Dolar', value: 25.97, change: 0.22 },
   { symbol: 'EUR/TL', name: 'Euro', value: 37.18, change: -0.56 },
@@ -19,6 +40,12 @@ const initialData: MarketData[] = [
   { symbol: 'BRENT', name: 'Brent Petrol', value: 74.66, change: 0.50 },
 ];
 
+/**
+ * MarketTicker bileşeni
+ * Piyasa verilerini kayan bir bant şeklinde gösterir
+ * 
+ * @returns {JSX.Element} MarketTicker bileşeni
+ */
 export default function MarketTicker() {
   const theme = useTheme();
   const [marketData, setMarketData] = useState<MarketData[]>(initialData);

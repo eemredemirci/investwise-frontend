@@ -1,3 +1,23 @@
+/**
+ * Gösterge Paneli (Dashboard) Sayfası
+ * 
+ * Bu sayfa, kullanıcının yatırım portföyüne genel bir bakış sunar.
+ * Özellikler:
+ * - Portföy değeri ve performans göstergeleri
+ * - Portföy dağılımı grafiği
+ * - Kategori bazlı getiri analizi
+ * - Portföy performans grafiği
+ * - Risk seviyesi göstergesi
+ * - Hızlı fon alım butonu
+ * 
+ * Grafikler:
+ * - Pasta grafik (portföy dağılımı)
+ * - Çubuk grafik (kategori bazlı getiri)
+ * - Çizgi grafik (performans)
+ * 
+ * @component
+ */
+
 import { Box, Typography, Grid, Card, CardContent, IconButton, useTheme, Button } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../types';
@@ -15,6 +35,10 @@ import {
 import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, BarChart, Bar } from 'recharts';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * Grafik verisi için örnek veri seti
+ * API entegrasyonu yapılana kadar kullanılacak
+ */
 const dummyChartData = [
   { name: 'Oca', value: 100 },
   { name: 'Şub', value: 120 },
@@ -24,6 +48,9 @@ const dummyChartData = [
   { name: 'Haz', value: 140 },
 ];
 
+/**
+ * Kategori bazlı getiri için örnek veri seti
+ */
 const dummyBarData = [
   { name: 'Borçlanma', value: 20 },
   { name: 'Fon Sepeti', value: 20 },
@@ -32,8 +59,17 @@ const dummyBarData = [
   { name: 'Katılım', value: 20 },
 ];
 
+/**
+ * Grafik renk paleti
+ */
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8'];
 
+/**
+ * Dashboard bileşeni
+ * Kullanıcının yatırım portföyünü görselleştirir
+ * 
+ * @returns {JSX.Element} Dashboard bileşeni
+ */
 export default function Dashboard() {
   const theme = useTheme();
   const navigate = useNavigate();
