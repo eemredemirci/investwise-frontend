@@ -1,5 +1,15 @@
+/**
+ * Material-UI Tema Yapılandırması
+ * Bu dosya, uygulamanın görsel stilini ve tema özelliklerini tanımlar.
+ * - Renk paletleri
+ * - Tipografi
+ * - Bileşen stilleri
+ * - Animasyonlar
+ * gibi özellikler burada merkezi olarak yönetilir.
+ */
 import { createTheme, alpha } from '@mui/material/styles';
 
+// TypeScript için özel bileşen tiplerini tanımla
 declare module '@mui/material/styles' {
   interface Components {
     MuiBox?: {
@@ -15,37 +25,40 @@ declare module '@mui/material/styles' {
   }
 }
 
-// Ana tema renkleri
+/**
+ * Tema Renk Paleti
+ * Uygulamada kullanılan tüm renkler ve varyasyonları
+ */
 const themeColors = {
-  // Ana renkler
+  // Ana renkler - Markanın temel renk şeması
   primary: {
-    lighter: '#4d8bff',
-    light: '#0055ff',
-    main: '#0044cc',
-    dark: '#003399',
-    darker: '#0c121e',
+    lighter: '#4d8bff',  // Açık ton - Vurgular için
+    light: '#0055ff',    // Hafif ton - İkincil öğeler
+    main: '#0044cc',     // Ana ton - Temel öğeler
+    dark: '#003399',     // Koyu ton - Arka plan
+    darker: '#0c121e',   // En koyu ton - Gölgeler
   },
-  // Arka plan renkleri
+  // Arka plan renkleri - Katmanlı UI için
   background: {
-    light: 'rgba(243, 244, 246, 0.7)',
-    main: 'rgba(59, 60, 63, 0.7)',
-    dark: 'rgba(12, 18, 30, 0.85)',
-    card: 'rgba(255, 255, 255, 0.1)',
+    light: 'rgba(243, 244, 246, 0.7)',   // Açık arka plan
+    main: 'rgba(59, 60, 63, 0.7)',       // Ana arka plan
+    dark: 'rgba(12, 18, 30, 0.85)',      // Koyu arka plan
+    card: 'rgba(255, 255, 255, 0.1)',    // Kart arka planı
   },
-  // Gradient tanımları
+  // Gradyan tanımları - Görsel zenginlik için
   gradients: {
     primary: 'linear-gradient(135deg, #0055ff, #0044cc)',
     background: 'linear-gradient(-45deg, #e3f2fd, #bbdefb, #90caf9, #64b5f6)',
     card: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
   },
-  // Saydamlık değerleri
+  // Saydamlık değerleri - UI katmanları için
   alpha: {
-    light: 0.8,
-    medium: 0.6,
-    low: 0.4,
-    veryLow: 0.1,
+    light: 0.8,    // Yüksek görünürlük
+    medium: 0.6,   // Orta görünürlük
+    low: 0.4,      // Düşük görünürlük
+    veryLow: 0.1,  // Çok düşük görünürlük
   },
-  // Gölge efektleri
+  // Gölge efektleri - Derinlik için
   shadows: {
     card: '0 8px 32px rgba(0, 85, 255, 0.2)',
     button: '0 4px 12px rgba(0, 85, 255, 0.3)',
@@ -53,7 +66,9 @@ const themeColors = {
   },
 };
 
+// Ana tema yapılandırması
 const theme = createTheme({
+  // Renk paleti yapılandırması
   palette: {
     primary: {
       light: themeColors.primary.light,
@@ -89,6 +104,8 @@ const theme = createTheme({
       secondary: '#64748b',
     },
   },
+
+  // Tipografi yapılandırması
   typography: {
     fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
@@ -123,10 +140,14 @@ const theme = createTheme({
       fontWeight: 500,
     },
   },
+
+  // Bileşen özelleştirmeleri
   components: {
+    // Box bileşeni özelleştirmeleri
     MuiBox: {
       styleOverrides: {
         root: {
+          // Gradyan animasyonu
           '@keyframes gradient': {
             '0%': {
               backgroundPosition: '0% 50%',
@@ -138,6 +159,7 @@ const theme = createTheme({
               backgroundPosition: '0% 50%',
             },
           },
+          // Özel sınıf stilleri
           '&.gradient-background': {
             background: themeColors.gradients.background,
             backgroundSize: '400% 400%',
