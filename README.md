@@ -1,7 +1,6 @@
 ![image](https://github.com/user-attachments/assets/ee702678-12a4-4572-b6ff-51924e0ef9db)# InvestWise - Modern Yatırım Platformu
 
 InvestWise, yatırımcılara fon yönetimi ve analizi konusunda yardımcı olan modern bir web platformudur.
-![image](https://github.com/user-attachments/assets/c8295efe-f1af-4478-baba-ae0e96a049c7)
 
 ## 🚀 Özellikler
 
